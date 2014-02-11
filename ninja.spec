@@ -2,7 +2,7 @@
 
 Name:           ninja
 Version:        1.4.0
-Release:        1
+Release:        2
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
 
@@ -75,7 +75,7 @@ ulimit -u 2048
 %install
 # TODO: Install ninja_syntax.py?
 install -p -m 755 -d %{buildroot}%{_bindir}
-install -p -m 755 ninja %{buildroot}%{_bindir}/ninja-build
+install -p -m 755 ninja %{buildroot}%{_bindir}/
 
 install -p -m 755 -d %{buildroot}%{_sysconfdir}/bash_completion.d
 install -p -m 644 misc/bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/ninja-bash-completion
@@ -94,7 +94,7 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 
 %files
 %doc COPYING README doc/manual.html
-%{_bindir}/ninja-build
+%{_bindir}/ninja
 %{_sysconfdir}/bash_completion.d/
 
 %files emacs
