@@ -1,8 +1,8 @@
 #global githash 5dc55a3
 
 Name:           ninja
-Version:        1.4.0
-Release:        4
+Version:        1.5.1
+Release:        1
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
 
