@@ -2,7 +2,7 @@
 
 Name:           ninja
 Version:        1.5.3
-Release:        1
+Release:        2
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
 
@@ -14,6 +14,7 @@ URL:            http://martine.github.com/ninja/
 #Source0:        martine-ninja-%{githash}.tar.gz
 Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz
 Source1:        ninja.vim
+Source2:	ninja.macros
 
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
@@ -92,11 +93,13 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja
 install -p -m 755 -d %{buildroot}%{_datadir}/zsh/site-functions
 install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_ninja
 
+install -c -m 644 -D %{SOURCE2} "%{buildroot}"%{_sysconfdir}/rpm/macros.d/ninja.macros
 
 %files
 %doc COPYING README doc/manual.html
 %{_bindir}/ninja
 %{_sysconfdir}/bash_completion.d/
+%{_sysconfdir}/rpm/macros.d/ninja.macros
 
 %files emacs
 %{_datadir}/emacs/site-lisp/ninja-mode.el

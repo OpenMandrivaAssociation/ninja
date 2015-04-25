@@ -1,0 +1,6 @@
+%__ninja %{_bindir}/ninja
+
+%ninja %__ninja
+
+%ninja_install \
+    DESTDIR="%{buildroot}" %__ninja install
