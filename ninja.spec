@@ -1,8 +1,8 @@
 #global githash 5dc55a3
 
 Name:           ninja
-Version:        1.5.3
-Release:        2
+Version:        1.6.0
+Release:        1
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
 
@@ -58,9 +58,12 @@ Command line completion for Ninja in zsh
 
 
 %build
-CFLAGS="%{optflags}"
-export CFLAGS
-2to3 -w configure.py
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
+export LDFLAGS="%{optflags}"
+export CC="%{__cc}"
+export CXX="%{__cxx}"
+export LD="%{__cxx}"
 ./configure.py --bootstrap
 ./ninja -v manual
 ./ninja -v ninja_test
