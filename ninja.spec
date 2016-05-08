@@ -2,7 +2,7 @@
 
 Name:           ninja
 Version:        1.7.1
-Release:        2
+Release:        3
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
 
