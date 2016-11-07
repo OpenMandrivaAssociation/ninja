@@ -1,8 +1,8 @@
 #global githash 5dc55a3
 
 Name:           ninja
-Version:        1.7.1
-Release:        3
+Version:        1.7.2
+Release:        1
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
 
@@ -12,15 +12,16 @@ URL:            http://martine.github.com/ninja/
 # Snapshot from github
 # Downloaded from https://github.com/martine/ninja/tarball/%{githash}
 #Source0:        martine-ninja-%{githash}.tar.gz
-Source0:        https://github.com/martine/ninja/archive/v%{version}.tar.gz
+Source0:        https://github.com/martine/ninja/archive/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:	ninja.macros
 
 BuildRequires:  asciidoc
 BuildRequires:  gtest-devel
 BuildRequires:  re2c
-BuildRequires:	xsltproc docbook-dtds docbook-style-xsl
-
+BuildRequires:	xsltproc
+BuildRequires:	docbook-dtds
+BuildRequires:	docbook-style-xsl
 Suggests:	%{name}-vim = %{EVRD}
 
 %description
@@ -99,7 +100,7 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 install -c -m 644 -D %{SOURCE2} "%{buildroot}"%{_sysconfdir}/rpm/macros.d/ninja.macros
 
 %files
-%doc COPYING README doc/manual.html
+%doc README doc/manual.html
 %{_bindir}/ninja
 %{_sysconfdir}/bash_completion.d/
 %{_sysconfdir}/rpm/macros.d/ninja.macros
