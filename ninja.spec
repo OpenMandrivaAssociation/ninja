@@ -1,7 +1,7 @@
 #global githash 5dc55a3
 
 Name:           ninja
-Version:        1.7.2
+Version:        1.8.1
 Release:        1
 Group:          Development/Other
 Summary:        A small build system with a focus on speed
@@ -12,7 +12,7 @@ URL:            http://martine.github.com/ninja/
 # Snapshot from github
 # Downloaded from https://github.com/martine/ninja/tarball/%{githash}
 #Source0:        martine-ninja-%{githash}.tar.gz
-Source0:        https://github.com/martine/ninja/archive/ninja-%{version}.tar.gz
+Source0:        https://github.com/martine/ninja/archive/%{name}-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:	ninja.macros
 
@@ -57,7 +57,6 @@ Command line completion for Ninja in zsh
 %prep
 %setup -q
 
-
 %build
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{optflags}"
@@ -69,14 +68,12 @@ export LD="%{__cxx}"
 ./ninja -v manual
 ./ninja -v ninja_test
 
-
 %check
 # workaround possible too low default limits
 ulimit -n 2048
 ulimit -u 2048
 
 ./ninja_test || /bin/true
-
 
 %install
 # TODO: Install ninja_syntax.py?
