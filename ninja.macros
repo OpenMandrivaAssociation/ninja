@@ -2,5 +2,10 @@
 
 %ninja %__ninja
 
+%ninja_build %__ninja
+
 %ninja_install \
     DESTDIR="%{buildroot}" %__ninja install
+
+%ninja_test \
+    %__ninja test -v
