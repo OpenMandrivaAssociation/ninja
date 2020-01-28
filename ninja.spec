@@ -57,12 +57,12 @@ Command line completion for Ninja in zsh
 %autosetup -p1
 
 %build
-export CFLAGS="%{optflags}"
-export CXXFLAGS="%{optflags}"
-export LDFLAGS="%{optflags}"
+export CFLAGS="%{optflags} -O2"
+export CXXFLAGS="%{optflags} -O2"
+export LDFLAGS="%{ldflags}"
 export CC="%{__cc}"
 export CXX="%{__cxx}"
-export LD="%{__cxx}"
+export LD="%{__ld}"
 ./configure.py --bootstrap
 ./ninja -v manual
 ./ninja -v ninja_test
