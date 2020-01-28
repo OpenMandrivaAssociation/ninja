@@ -96,7 +96,7 @@ install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions
 install -c -m 644 -D %{SOURCE2} "%{buildroot}"%{_sysconfdir}/rpm/macros.d/ninja.macros
 
 %files
-%doc README doc/manual.html
+%doc README.md doc/manual.html
 %{_bindir}/ninja
 %{_sysconfdir}/bash_completion.d/
 %{_sysconfdir}/rpm/macros.d/ninja.macros
