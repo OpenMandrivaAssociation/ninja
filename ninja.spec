@@ -1,24 +1,23 @@
 #global githash 5dc55a3
 
-Name:           ninja
-Version:        1.9.0
-Release:        1
-Group:          Development/Other
-Summary:        A small build system with a focus on speed
-
-License:        ASL 2.0
-URL:            http://martine.github.com/ninja/
+Name:		ninja
+Version:	1.10.0
+Release:	1
+Group:		Development/Other
+Summary:	A small build system with a focus on speed
+License:	ASL 2.0
+URL:		https://ninja-build.org/
 #VCS:            git://github.com/martine/ninja.git
 # Snapshot from github
 # Downloaded from https://github.com/martine/ninja/tarball/%{githash}
 #Source0:        martine-ninja-%{githash}.tar.gz
-Source0:        https://github.com/martine/ninja/archive/%{name}-%{version}.tar.gz
-Source1:        ninja.vim
+Source0:	https://github.com/ninja-build/ninja/archive/%{name}-%{version}.tar.gz
+Source1:	ninja.vim
 Source2:	ninja.macros
 
-BuildRequires:  asciidoc
-BuildRequires:  gtest-devel
-BuildRequires:  re2c
+BuildRequires:	asciidoc
+BuildRequires:	gtest-devel
+BuildRequires:	re2c
 BuildRequires:	xsltproc
 BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
@@ -55,7 +54,7 @@ Group:		Development/Other
 Command line completion for Ninja in zsh
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 export CFLAGS="%{optflags}"
