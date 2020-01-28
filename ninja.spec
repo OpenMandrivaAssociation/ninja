@@ -1,4 +1,4 @@
-#global githash 5dc55a3
+%global optflags %{optflags} -O2
 
 Name:		ninja
 Version:	1.10.0
@@ -57,11 +57,7 @@ Command line completion for Ninja in zsh
 %autosetup -p1
 
 %build
-export CFLAGS="%{optflags} -O2"
-export CXXFLAGS="%{optflags} -O2"
-export LDFLAGS="%{ldflags}"
-export CC="%{__cc}"
-export CXX="%{__cxx}"
+%set_build_flags
 export LD="%{__ld}"
 ./configure.py --bootstrap
 ./ninja -v manual
