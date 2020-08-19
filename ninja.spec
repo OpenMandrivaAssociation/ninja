@@ -1,7 +1,7 @@
 %global optflags %{optflags} -O2
 
 Name:		ninja
-Version:	1.10.0
+Version:	1.10.1
 Release:	1
 Group:		Development/Other
 Summary:	A small build system with a focus on speed
