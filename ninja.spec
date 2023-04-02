@@ -55,20 +55,31 @@ Command line completion for Ninja in zsh
 
 %prep
 %autosetup -p1
+%if %{cross_compiling}
+# Don't try to launch just-created ninja bootstrap binaries...
+sed -i -e "s|'./ninja'|'ninja'|" configure.py
+%endif
 
 %build
 %set_build_flags
 export LD="%{__ld}"
 ./configure.py --bootstrap
+%if %{cross_compiling}
+ninja -v manual
+ninja -v ninja_test
+%else
 ./ninja -v manual
 ./ninja -v ninja_test
+%endif
 
+%if ! %{cross_compiling}
 %check
 # workaround possible too low default limits
 ulimit -n 2048
 ulimit -u 2048
 
 ./ninja_test || /bin/true
+%endif
 
 %install
 # TODO: Install ninja_syntax.py?
