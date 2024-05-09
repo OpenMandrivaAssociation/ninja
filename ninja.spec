@@ -1,7 +1,7 @@
 %global optflags %{optflags} -O2
 
 Name:		ninja
-Version:	1.11.1
+Version:	1.12.0
 Release:	1
 Group:		Development/Other
 Summary:	A small build system with a focus on speed
@@ -11,7 +11,7 @@ URL:		https://ninja-build.org/
 # Snapshot from github
 # Downloaded from https://github.com/martine/ninja/tarball/%{githash}
 #Source0:        martine-ninja-%{githash}.tar.gz
-Source0:	https://github.com/ninja-build/ninja/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/ninja-build/ninja/archive/refs/tags/v%{version}.tar.gz
 Source1:	ninja.vim
 Source2:	ninja.macros
 
@@ -21,7 +21,13 @@ BuildRequires:	re2c
 BuildRequires:	xsltproc
 BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
+BuildRequires:	cmake
+BuildRequires:	make
 Suggests:	%{name}-vim = %{EVRD}
+
+BuildSystem:	cmake
+# Avoid a circular build dependency
+BuildOption:	-G 'Unix Makefiles'
 
 %description
 Ninja is a small build system with a focus on speed. It differs from other
@@ -53,39 +59,12 @@ Group:		Development/Other
 %description zsh
 Command line completion for Ninja in zsh
 
-%prep
-%autosetup -p1
-%if %{cross_compiling}
-# Don't try to launch just-created ninja bootstrap binaries...
-sed -i -e "s|'./ninja'|'ninja'|" configure.py
-%endif
+%build -a
+cd doc
+asciidoc manual.asciidoc
 
-%build
-%set_build_flags
-export LD="%{__ld}"
-./configure.py --bootstrap
-%if %{cross_compiling}
-ninja -v manual
-ninja -v ninja_test
-%else
-./ninja -v manual
-./ninja -v ninja_test
-%endif
-
-%if ! %{cross_compiling}
-%check
-# workaround possible too low default limits
-ulimit -n 2048
-ulimit -u 2048
-
-./ninja_test || /bin/true
-%endif
-
-%install
+%install -a
 # TODO: Install ninja_syntax.py?
-install -p -m 755 -d %{buildroot}%{_bindir}
-install -p -m 755 ninja %{buildroot}%{_bindir}/
-
 install -p -m 755 -d %{buildroot}%{_sysconfdir}/bash_completion.d
 install -p -m 644 misc/bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/ninja-bash-completion
 
@@ -101,6 +80,12 @@ install -p -m 755 -d %{buildroot}%{_datadir}/zsh/site-functions
 install -p -m 644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_ninja
 
 install -c -m 644 -D %{SOURCE2} "%{buildroot}"%{_sysconfdir}/rpm/macros.d/ninja.macros
+
+%if ! %{cross_compiling}
+%check
+cd _OMV_rpm_build
+./ninja_test
+%endif
 
 %files
 %doc README.md doc/manual.html
