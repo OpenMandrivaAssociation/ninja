@@ -1,8 +1,8 @@
 %global optflags %{optflags} -O2
 
 Name:		ninja
-Version:	1.12.0
-Release:	1
+Version:	1.11.1
+Release:	2
 Group:		Development/Other
 Summary:	A small build system with a focus on speed
 License:	ASL 2.0
