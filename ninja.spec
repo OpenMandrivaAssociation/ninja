@@ -1,7 +1,7 @@
 %global optflags %{optflags} -O2
 
 Name:		ninja
-Version:	1.12.1
+Version:	1.13.2
 Release:	1
 Group:		Development/Other
 Summary:	A small build system with a focus on speed
@@ -23,11 +23,14 @@ BuildRequires:	docbook-dtds
 BuildRequires:	docbook-style-xsl
 BuildRequires:	cmake
 BuildRequires:	make
+# The emacs mode file was dropped in 1.13.0
+Obsoletes:	%{name}-emacs < %{EVRD}
 Suggests:	%{name}-vim = %{EVRD}
 
 BuildSystem:	cmake
 # Avoid a circular build dependency
 BuildOption:	-G 'Unix Makefiles'
+BuildOption:	-DINSTALL_GTEST:BOOL=OFF
 
 %description
 Ninja is a small build system with a focus on speed. It differs from other
@@ -42,14 +45,6 @@ Group:		Development/Other
 
 %description vim
 Syntax highlighting etc. for Ninja files in vim
-
-%package emacs
-Summary:	Syntax highlighting etc. for Ninja files in emacs
-Suggests:	%{name} = %{EVRD}
-Group:		Development/Other
-
-%description emacs
-Syntax highlighting etc. for Ninja files in emacs
 
 %package zsh
 Summary:	Command line completion for Ninja in zsh
@@ -67,9 +62,6 @@ asciidoc manual.asciidoc
 # TODO: Install ninja_syntax.py?
 install -p -m 755 -d %{buildroot}%{_sysconfdir}/bash_completion.d
 install -p -m 644 misc/bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/ninja-bash-completion
-
-install -p -m 755 -d %{buildroot}%{_datadir}/emacs/site-lisp
-install -p -m 644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 
 install -p -m 755 -d %{buildroot}%{_datadir}/vim/vimfiles/syntax
 install -p -m 644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
@@ -92,9 +84,6 @@ cd _OMV_rpm_build
 %{_bindir}/ninja
 %{_sysconfdir}/bash_completion.d/
 %{_sysconfdir}/rpm/macros.d/ninja.macros
-
-%files emacs
-%{_datadir}/emacs/site-lisp/ninja-mode.el
 
 %files vim
 %{_datadir}/vim/vimfiles/syntax/ninja.vim
